@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap");
+
+@layer base {
+  :root {
+    --background: 240 20% 4%;
+    --foreground: 180 100% 95%;
+
+    --card: 240 20% 8%;
+    --card-foreground: 180 100% 95%;
+
+    --popover: 240 20% 8%;
+    --popover-foreground: 180 100% 95%;
+
+    --primary: 180 100% 50%;
+    --primary-foreground: 240 20% 4%;
+
+    --secondary: 300 100% 60%;
+    --secondary-foreground: 240 20% 4%;
+
+    --muted: 240 15% 15%;
+    --muted-foreground: 180 20% 60%;
+
+    --accent: 270 100% 65%;
+    --accent-foreground: 240 20% 4%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 180 50% 20%;
+    --input: 240 15% 15%;
+    --ring: 180 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Neon colors */
+    --neon-cyan: 180 100% 50%;
+    --neon-magenta: 300 100% 60%;
+    --neon-purple: 270 100% 65%;
+    --neon-green: 150 100% 50%;
+
+    /* Glow effects */
+    --glow-cyan: 0 0 20px hsl(180 100% 50% / 0.5),
+      0 0 40px hsl(180 100% 50% / 0.3), 0 0 60px hsl(180 100% 50% / 0.2);
+    --glow-magenta: 0 0 20px hsl(300 100% 60% / 0.5),
+      0 0 40px hsl(300 100% 60% / 0.3), 0 0 60px hsl(300 100% 60% / 0.2);
+    --glow-purple: 0 0 20px hsl(270 100% 65% / 0.5),
+      0 0 40px hsl(270 100% 65% / 0.3), 0 0 60px hsl(270 100% 65% / 0.2);
+
+    --sidebar-background: 240 20% 4%;
+    --sidebar-foreground: 180 100% 95%;
+    --sidebar-primary: 180 100% 50%;
+    --sidebar-primary-foreground: 240 20% 4%;
+    --sidebar-accent: 240 15% 15%;
+    --sidebar-accent-foreground: 180 100% 95%;
+    --sidebar-border: 180 50% 20%;
+    --sidebar-ring: 180 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .neon-text-cyan {
+    text-shadow: var(--glow-cyan);
+  }
+
+  .neon-text-magenta {
+    text-shadow: var(--glow-magenta);
+  }
+
+  .neon-text-purple {
+    text-shadow: var(--glow-purple);
+  }
+
+  .neon-border-cyan {
+    box-shadow: var(--glow-cyan), inset 0 0 20px hsl(180 100% 50% / 0.1);
+  }
+
+  .neon-border-magenta {
+    box-shadow: var(--glow-magenta), inset 0 0 20px hsl(300 100% 60% / 0.1);
+  }
+
+  .neon-border-purple {
+    box-shadow: var(--glow-purple), inset 0 0 20px hsl(270 100% 65% / 0.1);
+  }
+
+  .glass-card {
+    @apply bg-card/40 backdrop-blur-xl border border-border/50 rounded-xl;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-flicker {
+    animation: flicker 3s linear infinite;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    filter: brightness(1);
+    text-shadow: var(--glow-cyan);
+  }
+  50% {
+    filter: brightness(1.2);
+    text-shadow: 0 0 30px hsl(180 100% 50% / 0.8),
+      0 0 60px hsl(180 100% 50% / 0.5), 0 0 90px hsl(180 100% 50% / 0.3);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes circular-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 15px hsl(180 100% 50% / 0.3),
+      0 0 30px hsl(180 100% 50% / 0.1);
+  }
+  25% {
+    box-shadow: 0 0 25px hsl(300 100% 60% / 0.4),
+      0 0 40px hsl(300 100% 60% / 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px hsl(270 100% 65% / 0.35),
+      0 0 35px hsl(270 100% 65% / 0.15);
+  }
+  75% {
+    box-shadow: 0 0 25px hsl(180 100% 50% / 0.4),
+      0 0 40px hsl(180 100% 50% / 0.2);
+  }
+}
+
+@keyframes flicker {
+  0%,
+  19.999%,
+  22%,
+  62.999%,
+  64%,
+  64.999%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  21.999%,
+  63%,
+  63.999%,
+  65%,
+  69.999% {
+    opacity: 0.4;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px; /* vertical scrollbar width */
+  height: 6px; /* horizontal scrollbar height */
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
