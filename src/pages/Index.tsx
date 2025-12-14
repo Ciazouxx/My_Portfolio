@@ -2,8 +2,13 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import HobbiesSection from "@/components/HobbiesSection";
-import ActivitiesSection from "@/components/ActivitiesSection";
-import AchievementsSection from "@/components/AchievementsSection";
+import React, { Suspense } from "react";
+const ActivitiesSection = React.lazy(
+  () => import("@/components/ActivitiesSection")
+);
+const AchievementsSection = React.lazy(
+  () => import("@/components/AchievementsSection")
+);
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -14,8 +19,20 @@ const Index = () => {
         <HeroSection />
         <AboutSection />
         <HobbiesSection />
-        <ActivitiesSection />
-        <AchievementsSection />
+        <Suspense
+          fallback={
+            <div className="py-20 text-center">Loading activities…</div>
+          }
+        >
+          <ActivitiesSection />
+        </Suspense>
+        <Suspense
+          fallback={
+            <div className="py-20 text-center">Loading achievements…</div>
+          }
+        >
+          <AchievementsSection />
+        </Suspense>
       </main>
       <Footer />
     </div>

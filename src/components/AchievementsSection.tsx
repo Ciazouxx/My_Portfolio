@@ -4,57 +4,21 @@ import {
   ArrowRight,
   ZoomIn,
   ZoomOut,
-  Trophy,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, MouseEvent } from "react";
 import OptimizedImage from "./ui/image";
-import profile from "@/assets/profile.jpg";
-import p1 from "@/assets/p1.jpg";
-import p2 from "@/assets/p2.jpg";
-import p3 from "@/assets/p3.jpg";
-import p4 from "@/assets/p4.jpg";
-import p5 from "@/assets/p5.jpg";
-import p6 from "@/assets/p6.jpg";
-import p8 from "@/assets/p8.jpg";
-import p9 from "@/assets/p9.jpg";
-import p10 from "@/assets/p10.jpg";
+import { assets } from "@/lib/assets";
 
-const achievements = [
-  {
-    title: "Dean's Lister",
-    description: "Academic Excellence Award",
-    year: "2023-2024",
-    icon: Trophy,
-    color: "primary",
-  },
-  // {
-  //   title: "Outstanding Student Leader",
-  //   description: "Student Council Award",
-  //   year: "2023",
-  //   icon: Star,
-  //   color: "primary",
-  // },
+const ac_pictures = [
+  assets.ac1,
+  assets.ac2,
+  assets.ac3,
+  assets.ac4,
+  assets.ac5,
 ];
 
-const colorConfig: {
-  [key: string]: { border: string; bg: string; text: string };
-} = {
-  primary: {
-    border: "border-primary/20 hover:border-primary",
-    bg: "bg-primary/10",
-    text: "text-primary",
-  },
-  secondary: {
-    border: "border-secondary/20 hover:border-secondary",
-    bg: "bg-secondary/10",
-    text: "text-secondary",
-  },
-  // Add other colors if needed
-};
 
-import type { MouseEvent } from "react";
-
-const certificateImages = [p1, p2, p3, p4, p5, p6, p8, p9, p10];
+const certificateImages = ac_pictures.map((img) => img.large);
 
 function usePrefetchImages(urls?: string[] | undefined) {
   useEffect(() => {
@@ -82,19 +46,19 @@ const AchievementsSection = () => {
 
   const closeLightbox = () => setLightboxOpen(false);
 
-  const nextImage = (e?: MouseEvent) => {
+  const nextImage = useCallback((e?: MouseEvent) => {
     e?.stopPropagation();
     setCurrentImageIndex((prev) => (prev + 1) % certificateImages.length);
     setZoom(1);
-  };
+  }, [certificateImages.length]);
 
-  const prevImage = (e?: MouseEvent) => {
+  const prevImage = useCallback((e?: MouseEvent) => {
     e?.stopPropagation();
     setCurrentImageIndex(
       (prev) => (prev - 1 + certificateImages.length) % certificateImages.length
     );
     setZoom(1);
-  };
+  }, [certificateImages.length]);
 
   const adjacentToPrefetch = lightboxOpen
     ? [
@@ -118,7 +82,7 @@ const AchievementsSection = () => {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [lightboxOpen]);
+  }, [lightboxOpen, nextImage, prevImage]);
 
   return (
     <section id="achievements" className="py-20 md:py-32 relative">
@@ -158,11 +122,6 @@ const AchievementsSection = () => {
                 className="max-w-[80vw] max-h-[80vh] object-contain"
                 priority
                 style={{ transform: `scale(${zoom})` }}
-                onError={(e) => {
-                  const target = e.currentTarget as HTMLImageElement;
-                  target.onerror = null;
-                  target.src = profile;
-                }}
                 width={1200}
                 height={900}
               />
@@ -232,24 +191,19 @@ const AchievementsSection = () => {
             style={{ scrollBehavior: "smooth" }}
           >
             <div className="flex gap-4 min-w-min">
-              {certificateImages.map((img, index) => (
+              {ac_pictures.map((img, index) => (
                 <div
                   key={index}
                   className="bg-transparent border border-primary/20 p-2 hover:scale-105 transition-transform duration-300 flex-shrink-0 w-64 h-48 rounded-lg group"
                 >
                   <div className="w-full h-full overflow-hidden rounded-lg border border-primary/10 bg-transparent relative">
                     <OptimizedImage
-                      src={img.replace(/\.jpg$/, "-sm.jpg")}
+                      src={img.small}
                       alt={`Certificate ${index + 1}`}
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover cursor-pointer hover:scale-110 transition-transform duration-300"
                       onClick={() => openLightbox(index)}
-                      onError={(e) => {
-                        const target = e.currentTarget as HTMLImageElement;
-                        target.onerror = null;
-                        target.src = profile;
-                      }}
                     />
                   </div>
                 </div>
@@ -258,53 +212,7 @@ const AchievementsSection = () => {
           </div>
         </div>
 
-        {/* Achievements */}
-        <div>
-          <h3 className="font-display text-2xl font-semibold text-secondary mb-8 text-center">
-            ACHIEVEMENTS
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {achievements.map((achievement, index) => {
-              const colors =
-                colorConfig[achievement.color] || colorConfig.primary;
-              const isDean = achievement.title === "Dean's Lister";
-              return (
-                <div
-                  key={achievement.title}
-                  className={
-                    isDean ? "sm:col-span-2 flex justify-center" : undefined
-                  }
-                >
-                  <div
-                    className={`glass-card p-6 ${colors.border} transition-all duration-300 group hover:scale-105`}
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <div className="flex items-start gap-4">
-                      <div
-                        className={`w-14 h-14 rounded-xl ${colors.bg} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
-                      >
-                        <achievement.icon
-                          className={`w-7 h-7 ${colors.text}`}
-                        />
-                      </div>
-                      <div>
-                        <h4 className="font-display text-lg font-semibold text-foreground mb-1">
-                          {achievement.title}
-                        </h4>
-                        <p className="font-body text-muted-foreground text-sm">
-                          {achievement.description}
-                        </p>
-                        <p className={`font-body ${colors.text} text-sm mt-2`}>
-                          {achievement.year}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        
       </div>
     </section>
   );

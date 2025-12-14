@@ -1,79 +1,41 @@
-import educ1 from "@/assets/educ1.jpg";
-import educ2 from "@/assets/educ2.jpg";
-import educ3 from "@/assets/educ3.jpg";
-import educ4 from "@/assets/educ4.jpg";
-import educ5 from "@/assets/educ5.jpg";
-import educ6 from "@/assets/educ6.jpg";
-import educ7 from "@/assets/educ7.jpg";
-import educ8 from "@/assets/educ8.jpg";
-import educ9 from "@/assets/educ9.jpg";
-import educ10 from "@/assets/educ10.jpg";
-import educ11 from "@/assets/educ11.jpg";
-import educ12 from "@/assets/educ12.jpg";
-import educ13 from "@/assets/educ13.jpg";
-import educ14 from "@/assets/educ14.jpg";
-import educ15 from "@/assets/educ15.jpg";
-import educ16 from "@/assets/educ16.jpg";
-import educ17 from "@/assets/educ17.jpg";
-import educ18 from "@/assets/educ18.jpg";
-import educ19 from "@/assets/educ19.jpg";
-import educ20 from "@/assets/educ20.jpg";
-import educ21 from "@/assets/educ21.jpg";
-import educ22 from "@/assets/educ22.jpg";
-import educ23 from "@/assets/educ23.jpg";
-import educ24 from "@/assets/educ24.jpg";
-import educ25 from "@/assets/educ25.jpg";
-import educ26 from "@/assets/educ26.jpg";
-import p1 from "@/assets/p1.jpg";
-import p2 from "@/assets/p2.jpg";
-import p3 from "@/assets/p3.jpg";
-import p4 from "@/assets/p4.jpg";
-import p5 from "@/assets/p5.jpg";
-import p6 from "@/assets/p6.jpg";
-import p8 from "@/assets/p8.jpg";
-import p9 from "@/assets/p9.jpg";
-import p10 from "@/assets/p10.jpg";
-import codm1 from "@/assets/codm1.jpg";
-import codm2 from "@/assets/codm2.jpg";
-import event1 from "@/assets/event1.jpg";
-import event2 from "@/assets/event2.jpg";
+import { assets } from "@/lib/assets";
 
 export const activities = [
   {
     name: "Educational Tour Cebu-Bohol 2025",
     images: [
-      educ1,
-      educ2,
-      educ3,
-      educ4,
-      educ5,
-      educ6,
-      educ7,
-      educ8,
-      educ9,
-      educ10,
-      educ11,
-      educ12,
-      educ13,
-      educ14,
-      educ15,
-      educ16,
-      educ17,
-      educ18,
-      educ19,
-      educ20,
-      educ21,
-      educ22,
-      educ23,
-      educ24,
-      educ25,
-      educ26,
+      assets.educ1,
+      assets.educ2,
+      assets.educ3,
+      assets.educ4,
+      assets.educ5,
+      assets.educ6,
+      assets.educ7,
+      assets.educ8,
+      assets.educ9,
+      assets.educ10,
+      assets.educ11,
+      assets.educ12,
+      assets.educ13,
+      assets.educ14,
+      assets.educ15,
+      assets.educ16,
+      assets.educ17,
+      assets.educ18,
+      assets.educ19,
+      assets.educ20,
+      assets.educ21,
+      assets.educ22,
+      assets.educ23,
+      assets.educ24,
+      assets.educ25,
+      assets.educ26,
     ],
     journal: {
       title: "Journal",
       entries: [
         {
-          image: p1,
+          image: assets.p1,
           content: (
             <>
               <strong>Learning Journal</strong>
@@ -87,7 +49,7 @@ export const activities = [
           ),
         },
         {
-          image: p2,
+          image: assets.p2,
           content: (
             <>
               <strong>Itinerary</strong>
@@ -103,7 +65,7 @@ export const activities = [
           ),
         },
         {
-          image: p3,
+          image: assets.p3,
           content: (
             <>
               <strong>Tour Highlights</strong>
@@ -114,7 +76,7 @@ export const activities = [
           ),
         },
         {
-          image: p4,
+          image: assets.p4,
           content: (
             <>
               Date: Nov 14 2023
@@ -143,7 +105,7 @@ export const activities = [
           ),
         },
         {
-          image: p5,
+          image: assets.p5,
           content: (
             <>
               Date: Nov 13
@@ -173,7 +135,7 @@ export const activities = [
           ),
         },
         {
-          image: p6,
+          image: assets.p6,
           content: (
             <>
               Date: Nov 12 2025
@@ -201,7 +163,7 @@ export const activities = [
           ),
         },
         {
-          image: p8,
+          image: assets.p8,
           content: (
             <>
               Date: Nov 14
@@ -227,7 +189,7 @@ export const activities = [
           ),
         },
         {
-          image: p9,
+          image: assets.p9,
           content: (
             <>
               Date: November 15 2025
@@ -256,7 +218,7 @@ export const activities = [
           ),
         },
         {
-          image: p10,
+          image: assets.p10,
           content: (
             <>
               <strong>Impression Sheet</strong>
@@ -306,10 +268,10 @@ export const activities = [
   },
   {
     name: "Codm Department Tournament",
-    images: [codm1, codm2],
+    images: [assets.codm1, assets.codm2],
   },
   {
     name: "Department Activities",
-    images: [event1, event2],
+    images: [assets.event1, assets.event2],
   },
 ];

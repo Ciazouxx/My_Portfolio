@@ -1,4 +1,4 @@
-import { ChevronDown, Github, Facebook, Mail } from "lucide-react";
+import { ChevronDown, Github, Linkedin, Mail } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -45,26 +45,19 @@ const HeroSection = () => {
           {/* Social Links */}
           <div className="flex items-center justify-center gap-6 mb-12">
             <a
-              href="https://github.com/Ciazouxx"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
+              href="#"
               className="group p-3 glass-card border-primary/30 hover:border-primary transition-all duration-300 hover:neon-border-cyan"
             >
               <Github className="w-6 h-6 text-foreground group-hover:text-primary transition-colors" />
             </a>
             <a
-              href="https://www.facebook.com/dont.talk.to.mehh/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
+              href="#"
               className="group p-3 glass-card border-secondary/30 hover:border-secondary transition-all duration-300 hover:neon-border-magenta"
             >
-              <Facebook className="w-6 h-6 text-foreground group-hover:text-secondary transition-colors" />
+              <Linkedin className="w-6 h-6 text-foreground group-hover:text-secondary transition-colors" />
             </a>
             <a
-              href="mailto:joevinylljan.palabrica@hcdc.edu.ph"
-              aria-label="Email"
+              href="#"
               className="group p-3 glass-card border-accent/30 hover:border-accent transition-all duration-300 hover:neon-border-purple"
             >
               <Mail className="w-6 h-6 text-foreground group-hover:text-accent transition-colors" />

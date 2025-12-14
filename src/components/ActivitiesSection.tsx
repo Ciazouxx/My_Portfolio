@@ -11,19 +11,31 @@ import type { MouseEvent } from "react";
 import OptimizedImage from "./ui/image";
 import { activities } from "@/lib/activities";
 
+// Define the type for an image asset
+type ImageAsset = {
+  small: string;
+  large: string;
+};
+
+// Define the type for a journal entry
+type JournalEntryData = {
+  image: ImageAsset;
+  content: React.ReactNode;
+};
+
 const JournalEntry = ({
   journal,
   openLightbox,
 }: {
   journal: {
     title: string;
-    entries: { image: string; content: React.ReactNode }[];
+    entries: JournalEntryData[];
   };
   openLightbox: (images: string[], index: number) => void;
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const currentEntry = journal.entries[selectedIndex];
-  const allImages = journal.entries.map((e) => e.image);
+  const allImages = journal.entries.map((e) => e.image.large);
 
   return (
     <div className="w-full lg:w-1/2 flex flex-col h-full">
@@ -39,7 +51,7 @@ const JournalEntry = ({
         {/* Left: Main Display Image */}
         <div className="w-1/2 h-full relative rounded-lg overflow-hidden border border-border/10 group">
           <OptimizedImage
-            src={currentEntry.image}
+            src={currentEntry.image.small}
             alt="Journal Display"
             loading="lazy"
             decoding="async"
@@ -62,7 +74,7 @@ const JournalEntry = ({
                 onClick={() => setSelectedIndex(idx)}
               >
                 <OptimizedImage
-                  src={entry.image}
+                  src={entry.image.small}
                   alt={`Thumbnail ${idx + 1}`}
                   loading="lazy"
                   decoding="async"
@@ -234,19 +246,24 @@ const ActivitiesSection = () => {
                   <div className="w-full lg:w-1/2 relative">
                     <div className="glass-card p-4 border-border/20 bg-transparent rounded-xl overflow-y-auto max-h-[500px] lg:max-h-none lg:absolute lg:inset-0">
                       <div className="grid grid-cols-2 gap-4">
-                        {activity.images.map((image, index) => (
+                        {(activity.images as ImageAsset[]).map((image, index) => (
                           <div
                             key={index}
                             className="aspect-square rounded-lg overflow-hidden border border-border/10 relative group"
                           >
                             <OptimizedImage
-                              src={image.replace(/\.jpg$/, "-sm.jpg")}
+                              src={image.small}
                               alt={`${activity.name} - Image ${index + 1}`}
                               loading="lazy"
                               decoding="async"
                               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 cursor-pointer"
                               onClick={() =>
-                                openLightbox(activity.images, index)
+                                openLightbox(
+                                  (activity.images as ImageAsset[]).map(
+                                    (i) => i.large
+                                  ),
+                                  index
+                                )
                               }
                             />
                           </div>
@@ -268,7 +285,7 @@ const ActivitiesSection = () => {
                   style={{ scrollBehavior: "smooth" }}
                 >
                   <div className="flex gap-4 min-w-min items-stretch">
-                    {activity.images.map((image, index) => (
+                    {(activity.images as ImageAsset[]).map((image, index) => (
                       <div
                         key={index}
                         className="bg-transparent border border-border/10 p-2 hover:scale-105 transition-transform duration-300 flex-shrink-0 w-48 h-48 rounded-lg"
@@ -276,13 +293,18 @@ const ActivitiesSection = () => {
                         <div className="w-full h-full overflow-hidden rounded-lg p-2 bg-transparent">
                           <div className="w-full h-full overflow-hidden rounded-lg border border-border/10 bg-transparent">
                             <OptimizedImage
-                              src={image}
+                              src={image.small}
                               alt={`${activity.name} - Image ${index + 1}`}
                               loading="lazy"
                               decoding="async"
                               className="w-full h-full object-cover hover:scale-110 transition-transform duration-300 rounded-lg cursor-pointer"
                               onClick={() =>
-                                openLightbox(activity.images, index)
+                                openLightbox(
+                                  (activity.images as ImageAsset[]).map(
+                                    (i) => i.large
+                                  ),
+                                  index
+                                )
                               }
                             />
                           </div>

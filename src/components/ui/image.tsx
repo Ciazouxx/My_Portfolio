@@ -46,30 +46,22 @@ const OptimizedImage = ({
     );
   }
 
-  const webpSrc =
-    typeof src === "string"
-      ? src.replace(/\.(jpg|jpeg|png)$/i, ".webp")
-      : undefined;
-
   return (
     <div
       className={`relative overflow-hidden ${
         !loaded ? placeholderClassName : ""
       }`}
     >
-      <picture>
-        {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
-        <img
-          ref={imgRef}
-          src={src}
-          alt={alt}
-          className={`${className} ${loaded ? "opacity-100" : "opacity-0"}`}
-          loading={priority ? "eager" : loading}
-          decoding={decoding}
-          fetchPriority={priority ? "high" : "auto"}
-          {...rest}
-        />
-      </picture>
+      <img
+        ref={imgRef}
+        src={src}
+        alt={alt}
+        className={`${className} ${loaded ? "opacity-100" : "opacity-0"}`}
+        loading={priority ? "eager" : loading}
+        decoding={decoding}
+        fetchPriority={priority ? "high" : "auto"}
+        {...rest}
+      />
     </div>
   );
 };
