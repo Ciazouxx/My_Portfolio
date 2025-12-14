@@ -1,26 +1,23 @@
 import {
-  Award,
-  Medal,
-  Trophy,
-  Star,
-  FileCheck,
-  BadgeCheck,
   X,
   ArrowLeft,
   ArrowRight,
   ZoomIn,
   ZoomOut,
+  Trophy,
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import OptimizedImage, { usePrefetchImages } from "./ui/image";
-import ac1 from "@/assets/ac1.jpg";
-import ac2 from "@/assets/ac2.jpg";
-import ac3 from "@/assets/ac3.jpg";
-import ac4 from "@/assets/ac4.jpg";
-import ac5 from "@/assets/ac5.jpg";
+import OptimizedImage from "./ui/image";
 import profile from "@/assets/profile.jpg";
-
-const certificateImages = [ac1, ac2, ac3, ac4, ac5];
+import p1 from "@/assets/p1.jpg";
+import p2 from "@/assets/p2.jpg";
+import p3 from "@/assets/p3.jpg";
+import p4 from "@/assets/p4.jpg";
+import p5 from "@/assets/p5.jpg";
+import p6 from "@/assets/p6.jpg";
+import p8 from "@/assets/p8.jpg";
+import p9 from "@/assets/p9.jpg";
+import p10 from "@/assets/p10.jpg";
 
 const achievements = [
   {
@@ -39,6 +36,39 @@ const achievements = [
   // },
 ];
 
+const colorConfig: {
+  [key: string]: { border: string; bg: string; text: string };
+} = {
+  primary: {
+    border: "border-primary/20 hover:border-primary",
+    bg: "bg-primary/10",
+    text: "text-primary",
+  },
+  secondary: {
+    border: "border-secondary/20 hover:border-secondary",
+    bg: "bg-secondary/10",
+    text: "text-secondary",
+  },
+  // Add other colors if needed
+};
+
+import type { MouseEvent } from "react";
+
+const certificateImages = [p1, p2, p3, p4, p5, p6, p8, p9, p10];
+
+function usePrefetchImages(urls?: string[] | undefined) {
+  useEffect(() => {
+    if (!urls) return;
+    const imgs: HTMLImageElement[] = [];
+    urls.forEach((src) => {
+      const i = new Image();
+      i.src = src;
+      imgs.push(i);
+    });
+    return () => imgs.forEach((i) => (i.src = ""));
+  }, [urls]);
+}
+
 const AchievementsSection = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -52,13 +82,13 @@ const AchievementsSection = () => {
 
   const closeLightbox = () => setLightboxOpen(false);
 
-  const nextImage = (e?: any) => {
+  const nextImage = (e?: MouseEvent) => {
     e?.stopPropagation();
     setCurrentImageIndex((prev) => (prev + 1) % certificateImages.length);
     setZoom(1);
   };
 
-  const prevImage = (e?: any) => {
+  const prevImage = (e?: MouseEvent) => {
     e?.stopPropagation();
     setCurrentImageIndex(
       (prev) => (prev - 1 + certificateImages.length) % certificateImages.length
@@ -195,7 +225,7 @@ const AchievementsSection = () => {
           <h3 className="font-display text-2xl font-semibold text-primary mb-8 text-center">
             CERTIFICATES
           </h3>
-          
+
           {/* Certificate Images Horizontal Scroll */}
           <div
             className="overflow-x-auto pb-4"
@@ -233,37 +263,46 @@ const AchievementsSection = () => {
           <h3 className="font-display text-2xl font-semibold text-secondary mb-8 text-center">
             ACHIEVEMENTS
           </h3>
-          <div className="flex justify-center gap-6 max-w-4xl mx-auto">
-            {achievements.map((achievement, index) => (
-              <div
-                key={achievement.title}
-                className={`glass-card p-6 border-${achievement.color}/20 hover:border-${achievement.color} transition-all duration-300 group hover:scale-105`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="flex items-start gap-4">
+          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {achievements.map((achievement, index) => {
+              const colors =
+                colorConfig[achievement.color] || colorConfig.primary;
+              const isDean = achievement.title === "Dean's Lister";
+              return (
+                <div
+                  key={achievement.title}
+                  className={
+                    isDean ? "sm:col-span-2 flex justify-center" : undefined
+                  }
+                >
                   <div
-                    className={`w-14 h-14 rounded-xl bg-${achievement.color}/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
+                    className={`glass-card p-6 ${colors.border} transition-all duration-300 group hover:scale-105`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <achievement.icon
-                      className={`w-7 h-7 text-${achievement.color}`}
-                    />
-                  </div>
-                  <div>
-                    <h4 className="font-display text-lg font-semibold text-foreground mb-1">
-                      {achievement.title}
-                    </h4>
-                    <p className="font-body text-muted-foreground text-sm">
-                      {achievement.description}
-                    </p>
-                    <p
-                      className={`font-body text-${achievement.color} text-sm mt-2`}
-                    >
-                      {achievement.year}
-                    </p>
+                    <div className="flex items-start gap-4">
+                      <div
+                        className={`w-14 h-14 rounded-xl ${colors.bg} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
+                      >
+                        <achievement.icon
+                          className={`w-7 h-7 ${colors.text}`}
+                        />
+                      </div>
+                      <div>
+                        <h4 className="font-display text-lg font-semibold text-foreground mb-1">
+                          {achievement.title}
+                        </h4>
+                        <p className="font-body text-muted-foreground text-sm">
+                          {achievement.description}
+                        </p>
+                        <p className={`font-body ${colors.text} text-sm mt-2`}>
+                          {achievement.year}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

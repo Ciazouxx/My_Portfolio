@@ -9,6 +9,21 @@ const skills = [
   // { name: "IT Systems", icon: Cpu, color: "primary" },
 ];
 
+const colorConfig: { [key: string]: { border: string; text: string } } = {
+  primary: {
+    border: "border-primary/30 hover:border-primary",
+    text: "text-primary",
+  },
+  secondary: {
+    border: "border-secondary/30 hover:border-secondary",
+    text: "text-secondary",
+  },
+  accent: {
+    border: "border-accent/30 hover:border-accent",
+    text: "text-accent",
+  },
+};
+
 const AboutSection = () => {
   return (
     <section id="about" className="py-20 md:py-32 relative">
@@ -56,20 +71,23 @@ const AboutSection = () => {
 
             {/* Skills Grid */}
             <div className="grid grid-cols-2 gap-4 pt-6">
-              {skills.map((skill, index) => (
-                <div
-                  key={skill.name}
-                  className={`glass-card p-4 border-${skill.color}/30 hover:border-${skill.color} transition-all duration-300 group cursor-default`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <skill.icon
-                    className={`w-8 h-8 mb-2 text-${skill.color} group-hover:animate-pulse`}
-                  />
-                  <p className="font-body font-semibold text-foreground">
-                    {skill.name}
-                  </p>
-                </div>
-              ))}
+              {skills.map((skill, index) => {
+                const colors = colorConfig[skill.color] || colorConfig.primary;
+                return (
+                  <div
+                    key={skill.name}
+                    className={`glass-card p-4 ${colors.border} transition-all duration-300 group cursor-default`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <skill.icon
+                      className={`w-8 h-8 mb-2 ${colors.text} group-hover:animate-pulse`}
+                    />
+                    <p className="font-body font-semibold text-foreground">
+                      {skill.name}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

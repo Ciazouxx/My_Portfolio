@@ -1,26 +1,10 @@
 import React, { ImgHTMLAttributes, useEffect, useRef, useState } from "react";
+import { AlertTriangle } from "lucide-react";
 
 interface OptimizedImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   priority?: boolean;
   placeholderClassName?: string;
 }
-
-export const usePrefetchImages = (srcs: string[] | undefined) => {
-  useEffect(() => {
-    if (!srcs || srcs.length === 0) return;
-    const imgs: HTMLImageElement[] = [];
-    for (const src of srcs) {
-      const img = new Image();
-      img.src = src;
-      imgs.push(img);
-    }
-    return () => {
-      imgs.forEach((i) => {
-        // clear reference
-      });
-    };
-  }, [srcs]);
-};
 
 const OptimizedImage = ({
   src,
@@ -28,22 +12,39 @@ const OptimizedImage = ({
   className = "",
   loading = "lazy",
   decoding = "async",
-  onError,
   priority = false,
   placeholderClassName = "bg-muted-foreground/10 animate-pulse",
   ...rest
 }: OptimizedImageProps) => {
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
     const img = imgRef.current;
     if (!img) return;
-    if (img.complete) setLoaded(true);
-    const handle = () => setLoaded(true);
-    img.addEventListener("load", handle);
-    return () => img.removeEventListener("load", handle);
+    if (img.complete) {
+      setLoaded(true);
+    }
+    const handleLoad = () => setLoaded(true);
+    const handleError = () => setError(true);
+    img.addEventListener("load", handleLoad);
+    img.addEventListener("error", handleError);
+    return () => {
+      img.removeEventListener("load", handleLoad);
+      img.removeEventListener("error", handleError);
+    };
   }, [src]);
+
+  if (error) {
+    return (
+      <div
+        className={`relative overflow-hidden flex items-center justify-center bg-muted-foreground/10 ${className}`}
+      >
+        <AlertTriangle className="w-8 h-8 text-muted-foreground" />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -55,11 +56,10 @@ const OptimizedImage = ({
         ref={imgRef}
         src={src}
         alt={alt}
-        className={`${className} ${loaded ? "" : "opacity-0"}`}
-        loading={priority ? "eager" : (loading as any)}
+        className={`${className} ${loaded ? "opacity-100" : "opacity-0"}`}
+        loading={priority ? "eager" : loading}
         decoding={decoding}
-        fetchpriority={priority ? ("high" as any) : ("low" as any)}
-        onError={onError}
+        fetchPriority={priority ? "high" : "auto"}
         {...rest}
       />
     </div>
