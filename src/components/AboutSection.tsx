@@ -1,5 +1,6 @@
 import { Code, Database, Globe, Cpu } from "lucide-react";
 import OptimizedImage from "./ui/image";
+import profile from "@/assets/profile.jpg";
 
 const skills = [
   { name: "Web Development", icon: Globe, color: "primary" },
@@ -27,7 +28,7 @@ const AboutSection = () => {
             <div className="aspect-square max-w-md mx-auto glass-card p-4 animate-border-glow">
               <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 rounded-lg flex items-center justify-center overflow-hidden">
                 <OptimizedImage
-                  src="/src/assets/profile.jpg"
+                  src={profile}
                   alt="Profile"
                   className="w-full h-full object-cover rounded-lg"
                   priority

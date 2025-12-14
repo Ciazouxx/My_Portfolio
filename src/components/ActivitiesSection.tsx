@@ -8,19 +8,83 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import OptimizedImage, { usePrefetchImages } from "./ui/image";
+import educ1 from "@/assets/educ1.jpg";
+import educ2 from "@/assets/educ2.jpg";
+import educ3 from "@/assets/educ3.jpg";
+import educ4 from "@/assets/educ4.jpg";
+import educ5 from "@/assets/educ5.jpg";
+import educ6 from "@/assets/educ6.jpg";
+import educ7 from "@/assets/educ7.jpg";
+import educ8 from "@/assets/educ8.jpg";
+import educ9 from "@/assets/educ9.jpg";
+import educ10 from "@/assets/educ10.jpg";
+import educ11 from "@/assets/educ11.jpg";
+import educ12 from "@/assets/educ12.jpg";
+import educ13 from "@/assets/educ13.jpg";
+import educ14 from "@/assets/educ14.jpg";
+import educ15 from "@/assets/educ15.jpg";
+import educ16 from "@/assets/educ16.jpg";
+import educ17 from "@/assets/educ17.jpg";
+import educ18 from "@/assets/educ18.jpg";
+import educ19 from "@/assets/educ19.jpg";
+import educ20 from "@/assets/educ20.jpg";
+import educ21 from "@/assets/educ21.jpg";
+import educ22 from "@/assets/educ22.jpg";
+import educ23 from "@/assets/educ23.jpg";
+import educ24 from "@/assets/educ24.jpg";
+import educ25 from "@/assets/educ25.jpg";
+import educ26 from "@/assets/educ26.jpg";
+import p1 from "@/assets/p1.jpg";
+import p2 from "@/assets/p2.jpg";
+import p3 from "@/assets/p3.jpg";
+import p4 from "@/assets/p4.jpg";
+import p5 from "@/assets/p5.jpg";
+import p6 from "@/assets/p6.jpg";
+import p8 from "@/assets/p8.jpg";
+import p9 from "@/assets/p9.jpg";
+import p10 from "@/assets/p10.jpg";
+import codm1 from "@/assets/codm1.jpg";
+import codm2 from "@/assets/codm2.jpg";
+import event1 from "@/assets/event1.jpg";
+import event2 from "@/assets/event2.jpg";
+import profile from "@/assets/profile.jpg";
 
 const activities = [
   {
     name: "Educational Tour Cebu-Bohol 2025",
-    images: Array.from(
-      { length: 26 },
-      (_, i) => `/src/assets/educ${i + 1}.jpg`
-    ),
+    images: [
+      educ1,
+      educ2,
+      educ3,
+      educ4,
+      educ5,
+      educ6,
+      educ7,
+      educ8,
+      educ9,
+      educ10,
+      educ11,
+      educ12,
+      educ13,
+      educ14,
+      educ15,
+      educ16,
+      educ17,
+      educ18,
+      educ19,
+      educ20,
+      educ21,
+      educ22,
+      educ23,
+      educ24,
+      educ25,
+      educ26,
+    ],
     journal: {
       title: "Journal",
       entries: [
         {
-          image: "/src/assets/p1.jpg",
+          image: p1,
           content: (
             <>
               <strong>Learning Journal</strong>
@@ -34,7 +98,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/assets/p2.jpg",
+          image: p2,
           content: (
             <>
               <strong>Itinerary</strong>
@@ -50,7 +114,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/assets/p3.jpg",
+          image: p3,
           content: (
             <>
               <strong>Tour Highlights</strong>
@@ -61,7 +125,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/assets/p4.jpg",
+          image: p4,
           content: (
             <>
               Date: Nov 14 2023
@@ -90,7 +154,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/assets/p5.jpg",
+          image: p5,
           content: (
             <>
               Date: Nov 13
@@ -120,7 +184,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/assets/p6.jpg",
+          image: p6,
           content: (
             <>
               Date: Nov 12 2025
@@ -148,7 +212,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/assets/p8.jpg",
+          image: p8,
           content: (
             <>
               Date: Nov 14
@@ -174,7 +238,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/assets/p9.jpg",
+          image: p9,
           content: (
             <>
               Date: November 15 2025
@@ -203,13 +267,13 @@ const activities = [
           ),
         },
         {
-          image: "/src/assets/p10.jpg",
+          image: p10,
           content: (
             <>
               <strong>Impression Sheet</strong>
               <br />
               <br />
-              <strong>Tour:</strong>
+.              <strong>Tour:</strong>
               <strong> Excellent. </strong>
               <br />
               The tour was very memorable and I enjoyed every moment and
@@ -254,11 +318,11 @@ const activities = [
   },
   {
     name: "Codm Department Tournament",
-    images: ["/src/assets/codm1.jpg", "/src/assets/codm2.jpg"],
+    images: [codm1, codm2],
   },
   {
     name: "Department Activities",
-    images: ["/src/assets/event1.jpg", "/src/assets/event2.jpg"],
+    images: [event1, event2],
   },
 ];
 
@@ -426,7 +490,7 @@ const ActivitiesSection = () => {
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
                   target.onerror = null;
-                  target.src = "/src/assets/profile.jpg";
+                  target.src = profile;
                 }}
                 width={1600}
                 height={1200}
@@ -549,7 +613,7 @@ const ActivitiesSection = () => {
                                 const target =
                                   e.currentTarget as HTMLImageElement;
                                 target.onerror = null;
-                                target.src = "/src/assets/profile.jpg";
+                                target.src = profile;
                               }}
                               width={480}
                               height={480}

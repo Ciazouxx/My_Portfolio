@@ -13,6 +13,12 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import OptimizedImage from "./ui/image";
+import ac1 from "@/assets/ac1.jpg";
+import ac2 from "@/assets/ac2.jpg";
+import ac3 from "@/assets/ac3.jpg";
+import ac4 from "@/assets/ac4.jpg";
+import ac5 from "@/assets/ac5.jpg";
+import profile from "@/assets/profile.jpg";
 
 /* const certificates = [
   {
@@ -41,10 +47,7 @@ import OptimizedImage from "./ui/image";
   },
 ]; */
 
-const certificateImages = Array.from(
-  { length: 5 },
-  (_, i) => `/src/assets/ac${i + 1}.jpg`
-);
+const certificateImages = [ac1, ac2, ac3, ac4, ac5];
 
 const achievements = [
   {
@@ -158,7 +161,7 @@ const AchievementsSection = () => {
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
                   target.onerror = null;
-                  target.src = "/src/assets/profile.jpg";
+                  target.src = profile;
                 }}
                 width={1200}
                 height={900}
@@ -265,7 +268,7 @@ const AchievementsSection = () => {
                       onError={(e) => {
                         const target = e.currentTarget as HTMLImageElement;
                         target.onerror = null;
-                        target.src = "/src/assets/profile.jpg";
+                        target.src = profile;
                       }}
                       width={800}
                       height={600}
