@@ -18,7 +18,7 @@ const ac_pictures = [
 ];
 
 
-const certificateImages = ac_pictures.map((img) => img.large);
+const certificateImages = ac_pictures;
 
 function usePrefetchImages(urls?: string[] | undefined) {
   useEffect(() => {
@@ -198,11 +198,11 @@ const AchievementsSection = () => {
                 >
                   <div className="w-full h-full overflow-hidden rounded-lg border border-primary/10 bg-transparent relative">
                     <OptimizedImage
-                      src={img.small}
+                      src={img}
                       alt={`Certificate ${index + 1}`}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover cursor-pointer hover:scale-110 transition-transform duration-300"
+                      className="w-full h-full object-contain cursor-pointer hover:scale-110 transition-transform duration-300"
                       onClick={() => openLightbox(index)}
                     />
                   </div>
