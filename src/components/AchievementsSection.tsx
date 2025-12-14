@@ -12,6 +12,7 @@ import {
   ZoomOut,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import OptimizedImage from "./ui/image";
 
 /* const certificates = [
   {
@@ -42,7 +43,7 @@ import { useState, useEffect } from "react";
 
 const certificateImages = Array.from(
   { length: 5 },
-  (_, i) => `/src/images/cert/ac${i + 1}.jpg`
+  (_, i) => `/src/assets/ac${i + 1}.jpg`
 );
 
 const achievements = [
@@ -148,16 +149,19 @@ const AchievementsSection = () => {
               className="flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <OptimizedImage
                 src={certificateImages[currentImageIndex]}
                 alt={`Certificate ${currentImageIndex + 1}`}
                 className="max-w-[80vw] max-h-[80vh] object-contain"
+                priority
                 style={{ transform: `scale(${zoom})` }}
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
                   target.onerror = null;
-                  target.src = "/src/images/profile.jpg";
+                  target.src = "/src/assets/profile.jpg";
                 }}
+                width={1200}
+                height={900}
               />
             </div>
 
@@ -251,7 +255,7 @@ const AchievementsSection = () => {
                   className="bg-transparent border border-primary/20 p-2 hover:scale-105 transition-transform duration-300 flex-shrink-0 w-64 h-48 rounded-lg group"
                 >
                   <div className="w-full h-full overflow-hidden rounded-lg border border-primary/10 bg-transparent relative">
-                    <img
+                    <OptimizedImage
                       src={img}
                       alt={`Certificate ${index + 1}`}
                       loading="lazy"
@@ -261,8 +265,10 @@ const AchievementsSection = () => {
                       onError={(e) => {
                         const target = e.currentTarget as HTMLImageElement;
                         target.onerror = null;
-                        target.src = "/src/images/profile.jpg";
+                        target.src = "/src/assets/profile.jpg";
                       }}
+                      width={800}
+                      height={600}
                     />
                   </div>
                 </div>

@@ -7,19 +7,20 @@ import {
   ZoomOut,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import OptimizedImage, { usePrefetchImages } from "./ui/image";
 
 const activities = [
   {
     name: "Educational Tour Cebu-Bohol 2025",
     images: Array.from(
       { length: 26 },
-      (_, i) => `/src/images/educ/educ${i + 1}.jpg`
+      (_, i) => `/src/assets/educ${i + 1}.jpg`
     ),
     journal: {
       title: "Journal",
       entries: [
         {
-          image: "/src/images/journal/p1.jpg",
+          image: "/src/assets/p1.jpg",
           content: (
             <>
               <strong>Learning Journal</strong>
@@ -33,7 +34,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/images/journal/p2.jpg",
+          image: "/src/assets/p2.jpg",
           content: (
             <>
               <strong>Itinerary</strong>
@@ -49,7 +50,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/images/journal/p3.jpg",
+          image: "/src/assets/p3.jpg",
           content: (
             <>
               <strong>Tour Highlights</strong>
@@ -60,7 +61,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/images/journal/p4.jpg",
+          image: "/src/assets/p4.jpg",
           content: (
             <>
               Date: Nov 14 2023
@@ -89,7 +90,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/images/journal/p5.jpg",
+          image: "/src/assets/p5.jpg",
           content: (
             <>
               Date: Nov 13
@@ -119,7 +120,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/images/journal/p6.jpg",
+          image: "/src/assets/p6.jpg",
           content: (
             <>
               Date: Nov 12 2025
@@ -147,7 +148,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/images/journal/p8.jpg",
+          image: "/src/assets/p8.jpg",
           content: (
             <>
               Date: Nov 14
@@ -173,7 +174,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/images/journal/p9.jpg",
+          image: "/src/assets/p9.jpg",
           content: (
             <>
               Date: November 15 2025
@@ -202,7 +203,7 @@ const activities = [
           ),
         },
         {
-          image: "/src/images/journal/p10.jpg",
+          image: "/src/assets/p10.jpg",
           content: (
             <>
               <strong>Impression Sheet</strong>
@@ -253,11 +254,11 @@ const activities = [
   },
   {
     name: "Codm Department Tournament",
-    images: ["/src/images/codm/codm1.jpg", "/src/images/codm/codm2.jpg"],
+    images: ["/src/assets/codm1.jpg", "/src/assets/codm2.jpg"],
   },
   {
     name: "Department Activities",
-    images: ["/src/images/event/event1.jpg", "/src/images/event/event2.jpg"],
+    images: ["/src/assets/event1.jpg", "/src/assets/event2.jpg"],
   },
 ];
 
@@ -285,13 +286,15 @@ const JournalEntry = ({
       <div className="w-full aspect-[4/3] flex gap-4 glass-card p-2 border-border/20 bg-transparent rounded-lg overflow-hidden">
         {/* Left: Main Display Image */}
         <div className="w-1/2 h-full relative rounded-lg overflow-hidden border border-border/10 group">
-          <img
+          <OptimizedImage
             src={currentEntry.image}
             alt="Journal Display"
             loading="lazy"
             decoding="async"
             className="w-full h-full object-cover cursor-pointer transition-transform duration-300 group-hover:scale-105"
             onClick={() => openLightbox(allImages, selectedIndex)}
+            width={800}
+            height={600}
           />
         </div>
 
@@ -308,7 +311,7 @@ const JournalEntry = ({
                 }`}
                 onClick={() => setSelectedIndex(idx)}
               >
-                <img
+                <OptimizedImage
                   src={entry.image}
                   alt={`Thumbnail ${idx + 1}`}
                   loading="lazy"
@@ -318,6 +321,8 @@ const JournalEntry = ({
                       ? "opacity-100"
                       : "opacity-70 hover:opacity-100"
                   }`}
+                  width={240}
+                  height={240}
                 />
               </div>
             ))}
@@ -333,6 +338,14 @@ const ActivitiesSection = () => {
   const [images, setImages] = useState<string[]>([]);
   const [index, setIndex] = useState(0);
   const [zoom, setZoom] = useState(1);
+  const adjacentToPrefetch =
+    lightboxOpen && images.length > 0
+      ? [
+          images[(index + 1) % images.length],
+          images[(index - 1 + images.length) % images.length],
+        ]
+      : undefined;
+  usePrefetchImages(adjacentToPrefetch);
 
   const openLightbox = (imgs: string[], i: number) => {
     setImages(imgs);
@@ -404,16 +417,19 @@ const ActivitiesSection = () => {
               className="flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <OptimizedImage
                 src={images[index]}
                 alt={`Image ${index + 1}`}
                 className="max-w-[80vw] max-h-[80vh] object-contain"
+                priority
                 style={{ transform: `scale(${zoom})` }}
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
                   target.onerror = null;
-                  target.src = "/src/images/profile.jpg";
+                  target.src = "/src/assets/profile.jpg";
                 }}
+                width={1600}
+                height={1200}
               />
             </div>
 
@@ -482,7 +498,7 @@ const ActivitiesSection = () => {
                             key={index}
                             className="aspect-square rounded-lg overflow-hidden border border-border/10 relative group"
                           >
-                            <img
+                            <OptimizedImage
                               src={image}
                               alt={`${activity.name} - Image ${index + 1}`}
                               loading="lazy"
@@ -491,6 +507,8 @@ const ActivitiesSection = () => {
                               onClick={() =>
                                 openLightbox(activity.images, index)
                               }
+                              width={800}
+                              height={800}
                             />
                           </div>
                         ))}
@@ -518,7 +536,7 @@ const ActivitiesSection = () => {
                       >
                         <div className="w-full h-full overflow-hidden rounded-lg p-2 bg-transparent">
                           <div className="w-full h-full overflow-hidden rounded-lg border border-border/10 bg-transparent">
-                            <img
+                            <OptimizedImage
                               src={image}
                               alt={`${activity.name} - Image ${index + 1}`}
                               loading="lazy"
@@ -531,8 +549,10 @@ const ActivitiesSection = () => {
                                 const target =
                                   e.currentTarget as HTMLImageElement;
                                 target.onerror = null;
-                                target.src = "/src/images/profile.jpg";
+                                target.src = "/src/assets/profile.jpg";
                               }}
+                              width={480}
+                              height={480}
                             />
                           </div>
                         </div>
