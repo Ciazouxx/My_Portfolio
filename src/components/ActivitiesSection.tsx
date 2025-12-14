@@ -240,7 +240,7 @@ const ActivitiesSection = () => {
                             className="aspect-square rounded-lg overflow-hidden border border-border/10 relative group"
                           >
                             <OptimizedImage
-                              src={image}
+                              src={image.replace(/\.jpg$/, "-sm.jpg")}
                               alt={`${activity.name} - Image ${index + 1}`}
                               loading="lazy"
                               decoding="async"

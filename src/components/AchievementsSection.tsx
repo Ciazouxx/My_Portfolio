@@ -239,7 +239,7 @@ const AchievementsSection = () => {
                 >
                   <div className="w-full h-full overflow-hidden rounded-lg border border-primary/10 bg-transparent relative">
                     <OptimizedImage
-                      src={img}
+                      src={img.replace(/\.jpg$/, "-sm.jpg")}
                       alt={`Certificate ${index + 1}`}
                       loading="lazy"
                       decoding="async"
