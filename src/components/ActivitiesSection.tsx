@@ -357,8 +357,6 @@ const JournalEntry = ({
             decoding="async"
             className="w-full h-full object-cover cursor-pointer transition-transform duration-300 group-hover:scale-105"
             onClick={() => openLightbox(allImages, selectedIndex)}
-            width={800}
-            height={600}
           />
         </div>
 
@@ -385,8 +383,6 @@ const JournalEntry = ({
                       ? "opacity-100"
                       : "opacity-70 hover:opacity-100"
                   }`}
-                  width={240}
-                  height={240}
                 />
               </div>
             ))}
@@ -571,8 +567,6 @@ const ActivitiesSection = () => {
                               onClick={() =>
                                 openLightbox(activity.images, index)
                               }
-                              width={800}
-                              height={800}
                             />
                           </div>
                         ))}
@@ -615,8 +609,6 @@ const ActivitiesSection = () => {
                                 target.onerror = null;
                                 target.src = profile;
                               }}
-                              width={480}
-                              height={480}
                             />
                           </div>
                         </div>

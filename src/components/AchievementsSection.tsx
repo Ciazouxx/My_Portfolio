@@ -12,40 +12,13 @@ import {
   ZoomOut,
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import OptimizedImage from "./ui/image";
+import OptimizedImage, { usePrefetchImages } from "./ui/image";
 import ac1 from "@/assets/ac1.jpg";
 import ac2 from "@/assets/ac2.jpg";
 import ac3 from "@/assets/ac3.jpg";
 import ac4 from "@/assets/ac4.jpg";
 import ac5 from "@/assets/ac5.jpg";
 import profile from "@/assets/profile.jpg";
-
-/* const certificates = [
-  {
-    title: "Web Development Fundamentals",
-    issuer: "Coursera",
-    year: "2023",
-    icon: FileCheck,
-  },
-  {
-    title: "Python Programming",
-    issuer: "Udemy",
-    year: "2023",
-    icon: FileCheck,
-  },
-  {
-    title: "Database Management",
-    issuer: "LinkedIn Learning",
-    year: "2024",
-    icon: FileCheck,
-  },
-  {
-    title: "Cloud Computing Basics",
-    issuer: "AWS Academy",
-    year: "2024",
-    icon: BadgeCheck,
-  },
-]; */
 
 const certificateImages = [ac1, ac2, ac3, ac4, ac5];
 
@@ -58,26 +31,12 @@ const achievements = [
     color: "primary",
   },
   // {
-  //   title: "1st Place Hackathon",
-  //   description: "University Tech Competition",
-  //   year: "2024",
-  //   icon: Medal,
-  //   color: "secondary",
+  //   title: "Outstanding Student Leader",
+  //   description: "Student Council Award",
+  //   year: "2023",
+  //   icon: Star,
+  //   color: "primary",
   // },
-  // {
-  //   title: "Best Capstone Project",
-  //   description: "Departmental Recognition",
-  //   year: "2024",
-  //   icon: Award,
-  //   color: "accent",
-  // },
-  {
-    title: "Outstanding Student Leader",
-    description: "Student Council Award",
-    year: "2023",
-    icon: Star,
-    color: "primary",
-  },
 ];
 
 const AchievementsSection = () => {
@@ -106,6 +65,17 @@ const AchievementsSection = () => {
     );
     setZoom(1);
   };
+
+  const adjacentToPrefetch = lightboxOpen
+    ? [
+        certificateImages[(currentImageIndex + 1) % certificateImages.length],
+        certificateImages[
+          (currentImageIndex - 1 + certificateImages.length) %
+            certificateImages.length
+        ],
+      ]
+    : undefined;
+  usePrefetchImages(adjacentToPrefetch);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -225,27 +195,7 @@ const AchievementsSection = () => {
           <h3 className="font-display text-2xl font-semibold text-primary mb-8 text-center">
             CERTIFICATES
           </h3>
-          {/* <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {certificates.map((cert, index) => (
-              <div
-                key={cert.title}
-                className="glass-card p-6 border-primary/20 hover:border-primary transition-all duration-300 group hover:neon-border-cyan"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <cert.icon className="w-10 h-10 text-primary mb-4 group-hover:animate-pulse" />
-                <h4 className="font-display text-lg font-semibold text-foreground mb-2">
-                  {cert.title}
-                </h4>
-                <p className="font-body text-muted-foreground text-sm">
-                  {cert.issuer}
-                </p>
-                <p className="font-body text-primary text-sm mt-2">
-                  {cert.year}
-                </p>
-              </div>
-            ))}
-          </div> */}
-
+          
           {/* Certificate Images Horizontal Scroll */}
           <div
             className="overflow-x-auto pb-4"
@@ -270,8 +220,6 @@ const AchievementsSection = () => {
                         target.onerror = null;
                         target.src = profile;
                       }}
-                      width={800}
-                      height={600}
                     />
                   </div>
                 </div>
@@ -285,7 +233,7 @@ const AchievementsSection = () => {
           <h3 className="font-display text-2xl font-semibold text-secondary mb-8 text-center">
             ACHIEVEMENTS
           </h3>
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="flex justify-center gap-6 max-w-4xl mx-auto">
             {achievements.map((achievement, index) => (
               <div
                 key={achievement.title}
