@@ -13,7 +13,7 @@ const OptimizedImage = ({
   loading = "lazy",
   decoding = "async",
   priority = false,
-  placeholderClassName = "bg-muted-foreground/10 animate-pulse",
+  placeholderClassName = "bg-card/10 animate-pulse",
   ...rest
 }: OptimizedImageProps) => {
   const [loaded, setLoaded] = useState(false);
@@ -39,7 +39,7 @@ const OptimizedImage = ({
   if (error) {
     return (
       <div
-        className={`relative overflow-hidden flex items-center justify-center bg-muted-foreground/10 ${className}`}
+        className={`relative overflow-hidden flex items-center justify-center bg-card/10 ${className}`}
       >
         <AlertTriangle className="w-8 h-8 text-muted-foreground" />
       </div>
@@ -48,7 +48,7 @@ const OptimizedImage = ({
 
   return (
     <div
-      className={`relative overflow-hidden ${
+      className={`relative overflow-hidden w-full h-full ${
         !loaded ? placeholderClassName : ""
       }`}
     >
@@ -56,7 +56,7 @@ const OptimizedImage = ({
         ref={imgRef}
         src={src}
         alt={alt}
-        className={`${className} ${loaded ? "opacity-100" : "opacity-0"}`}
+        className={`${className} ${loaded ? "opacity-100" : "opacity-0"} block`}
         loading={priority ? "eager" : loading}
         decoding={decoding}
         fetchPriority={priority ? "high" : "auto"}

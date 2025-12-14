@@ -145,7 +145,7 @@ const ActivitiesSection = () => {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
           onClick={closeLightbox}
         >
-          <div className="relative max-w-[90vw] max-h-[90vh] p-4">
+          <div className="relative max-w-[90vw] max-h-[90vh] p-4 bg-card/80 rounded-xl backdrop-blur-sm">
             <button
               className="absolute top-2 right-2 p-2 bg-card/60 rounded-full"
               onClick={(e) => {
@@ -166,13 +166,13 @@ const ActivitiesSection = () => {
             </button>
 
             <div
-              className="flex items-center justify-center"
+              className="flex items-center justify-center w-[80vw] h-[80vh]"
               onClick={(e) => e.stopPropagation()}
             >
               <OptimizedImage
                 src={images[index]}
                 alt={`Image ${index + 1}`}
-                className="max-w-[80vw] max-h-[80vh] object-contain"
+                className="max-w-full max-h-full object-contain"
                 priority
                 style={{ transform: `scale(${zoom})` }}
                 width={1600}
@@ -252,10 +252,7 @@ const ActivitiesSection = () => {
                               decoding="async"
                               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 cursor-pointer"
                               onClick={() =>
-                                openLightbox(
-                                  activity.images as string[],
-                                  index
-                                )
+                                openLightbox(activity.images as string[], index)
                               }
                             />
                           </div>
@@ -291,10 +288,7 @@ const ActivitiesSection = () => {
                               decoding="async"
                               className="w-full h-full object-cover hover:scale-110 transition-transform duration-300 rounded-lg cursor-pointer"
                               onClick={() =>
-                                openLightbox(
-                                  activity.images as string[],
-                                  index
-                                )
+                                openLightbox(activity.images as string[], index)
                               }
                             />
                           </div>

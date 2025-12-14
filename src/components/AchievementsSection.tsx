@@ -1,10 +1,4 @@
-import {
-  X,
-  ArrowLeft,
-  ArrowRight,
-  ZoomIn,
-  ZoomOut,
-} from "lucide-react";
+import { X, ArrowLeft, ArrowRight, ZoomIn, ZoomOut } from "lucide-react";
 import { useState, useEffect, useCallback, MouseEvent } from "react";
 import OptimizedImage from "./ui/image";
 import { assets } from "@/lib/assets";
@@ -16,7 +10,6 @@ const ac_pictures = [
   assets.ac4,
   assets.ac5,
 ];
-
 
 const certificateImages = ac_pictures;
 
@@ -46,19 +39,26 @@ const AchievementsSection = () => {
 
   const closeLightbox = () => setLightboxOpen(false);
 
-  const nextImage = useCallback((e?: MouseEvent) => {
-    e?.stopPropagation();
-    setCurrentImageIndex((prev) => (prev + 1) % certificateImages.length);
-    setZoom(1);
-  }, [certificateImages.length]);
+  const nextImage = useCallback(
+    (e?: MouseEvent) => {
+      e?.stopPropagation();
+      setCurrentImageIndex((prev) => (prev + 1) % certificateImages.length);
+      setZoom(1);
+    },
+    [certificateImages.length]
+  );
 
-  const prevImage = useCallback((e?: MouseEvent) => {
-    e?.stopPropagation();
-    setCurrentImageIndex(
-      (prev) => (prev - 1 + certificateImages.length) % certificateImages.length
-    );
-    setZoom(1);
-  }, [certificateImages.length]);
+  const prevImage = useCallback(
+    (e?: MouseEvent) => {
+      e?.stopPropagation();
+      setCurrentImageIndex(
+        (prev) =>
+          (prev - 1 + certificateImages.length) % certificateImages.length
+      );
+      setZoom(1);
+    },
+    [certificateImages.length]
+  );
 
   const adjacentToPrefetch = lightboxOpen
     ? [
@@ -92,7 +92,7 @@ const AchievementsSection = () => {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
           onClick={closeLightbox}
         >
-          <div className="relative max-w-[90vw] max-h-[90vh] p-4">
+          <div className="relative max-w-[90vw] max-h-[90vh] p-4 bg-card/80 rounded-xl backdrop-blur-sm">
             <button
               className="absolute top-2 right-2 p-2 bg-card/60 rounded-full"
               onClick={(e) => {
@@ -113,13 +113,13 @@ const AchievementsSection = () => {
             </button>
 
             <div
-              className="flex items-center justify-center"
+              className="flex items-center justify-center w-[80vw] h-[80vh]"
               onClick={(e) => e.stopPropagation()}
             >
               <OptimizedImage
                 src={certificateImages[currentImageIndex]}
                 alt={`Certificate ${currentImageIndex + 1}`}
-                className="max-w-[80vw] max-h-[80vh] object-contain"
+                className="max-w-full max-h-full object-contain"
                 priority
                 style={{ transform: `scale(${zoom})` }}
                 width={1200}
@@ -202,7 +202,7 @@ const AchievementsSection = () => {
                       alt={`Certificate ${index + 1}`}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-contain cursor-pointer hover:scale-110 transition-transform duration-300"
+                      className="w-full h-full object-cover cursor-pointer hover:scale-110 transition-transform duration-300"
                       onClick={() => openLightbox(index)}
                     />
                   </div>
@@ -211,8 +211,6 @@ const AchievementsSection = () => {
             </div>
           </div>
         </div>
-
-        
       </div>
     </section>
   );
