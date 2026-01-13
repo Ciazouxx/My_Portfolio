@@ -24,6 +24,9 @@
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="canonical" href="/" />
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link
       rel="preload"
       href="/src/assets/profile-sm.webp"
@@ -36,6 +39,7 @@
       as="image"
       type="image/webp"
     />
+    <link rel="modulepreload" href="/src/main.tsx" />
   </head>
 
   <body>

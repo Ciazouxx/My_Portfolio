@@ -19,7 +19,7 @@ const Footer = () => {
             className="flex items-center justify-center md:justify-start gap-2 text-primary font-display font-bold text-lg neon-text-cyan"
           >
             <Code2 className="w-5 h-5" />
-            <span>PORTFOLIO</span>
+            <span>MY PORTFOLIO</span>
           </a>
 
           {/* Social Links */}
@@ -49,7 +49,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Details */}
-          <div className="flex flex-col items-center md:items-end gap-2 text-sm text-muted-foreground">
+          {/* <div className="flex flex-col items-center md:items-end gap-2 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
               <span>0995-177-1794</span>
@@ -58,7 +58,7 @@ const Footer = () => {
               <MapPin className="w-4 h-4" />
               <span>Davao City</span>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="text-center text-sm text-muted-foreground mt-8">
           <p className="flex items-center justify-center gap-1">

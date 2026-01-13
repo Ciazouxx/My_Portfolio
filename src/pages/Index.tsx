@@ -1,15 +1,16 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import HobbiesSection from "@/components/HobbiesSection";
 import React, { Suspense } from "react";
+const AboutSection = React.lazy(() => import("@/components/AboutSection"));
+const HobbiesSection = React.lazy(() => import("@/components/HobbiesSection"));
 const ActivitiesSection = React.lazy(
   () => import("@/components/ActivitiesSection")
 );
 const AchievementsSection = React.lazy(
   () => import("@/components/AchievementsSection")
 );
-import Footer from "@/components/Footer";
+const ContactSection = React.lazy(() => import("@/components/ContactSection"));
+const Footer = React.lazy(() => import("@/components/Footer"));
 
 const Index = () => {
   return (
@@ -17,8 +18,16 @@ const Index = () => {
       <Navbar />
       <main>
         <HeroSection />
-        <AboutSection />
-        <HobbiesSection />
+        <Suspense
+          fallback={<div className="py-20 text-center">Loading...</div>}
+        >
+          <AboutSection />
+        </Suspense>
+        <Suspense
+          fallback={<div className="py-20 text-center">Loading...</div>}
+        >
+          <HobbiesSection />
+        </Suspense>
         <Suspense
           fallback={
             <div className="py-20 text-center">Loading activities…</div>
@@ -33,8 +42,15 @@ const Index = () => {
         >
           <AchievementsSection />
         </Suspense>
+        <Suspense
+          fallback={<div className="py-20 text-center">Loading contact…</div>}
+        >
+          <ContactSection />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={<div className="py-4 text-center">Loading...</div>}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

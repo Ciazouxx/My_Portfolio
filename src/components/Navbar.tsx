@@ -7,6 +7,7 @@ const navLinks = [
   { name: "Hobbies", href: "#hobbies" },
   { name: "Activities", href: "#activities" },
   { name: "Achievements", href: "#achievements" },
+  { name: "Contact", href: "#contact" },
 ];
 
 const Navbar = () => {
@@ -37,7 +38,7 @@ const Navbar = () => {
             className="flex items-center gap-2 text-primary font-display font-bold text-xl neon-text-cyan"
           >
             <Code2 className="w-6 h-6" />
-            <span>PORTFOLIO</span>
+            <span>MY PORTFOLIO</span>
           </a>
 
           {/* Desktop Navigation */}
