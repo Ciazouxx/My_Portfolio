@@ -4,9 +4,11 @@ import { Menu, X, Code2 } from "lucide-react";
 const navLinks = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
   { name: "Hobbies", href: "#hobbies" },
   { name: "Activities", href: "#activities" },
   { name: "Achievements", href: "#achievements" },
+  { name: "Contact", href: "#contact" },
 ];
 
 const Navbar = () => {
@@ -17,7 +19,8 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -25,31 +28,32 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-primary/30 neon-border-cyan"
-          : "bg-transparent"
+          ? "bg-background/95 border-b border-border"
+          : "bg-background/90"
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <a
             href="#home"
-            className="flex items-center gap-2 text-primary font-display font-bold text-xl neon-text-cyan"
+            className="flex min-w-0 items-center gap-2 text-primary font-display text-lg font-bold sm:text-xl"
+            aria-label="Go to home"
           >
             <Code2 className="w-6 h-6" />
-            <span>PORTFOLIO</span>
+            <span className="truncate">PORTFOLIO</span>
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-5 xl:gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="relative font-body font-medium text-foreground/80 hover:text-primary transition-colors duration-300 group"
+                className="relative font-body text-sm font-medium text-foreground/80 transition-colors duration-300 hover:text-primary xl:text-base group"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 shadow-[0_0_10px_hsl(var(--primary))]" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-200" />
               </a>
             ))}
           </div>
@@ -57,7 +61,9 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-primary p-2"
+            className="lg:hidden text-primary p-2"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isOpen}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -65,7 +71,7 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden glass-card neon-border-cyan mb-4 overflow-hidden">
+          <div className="lg:hidden glass-card mb-4 overflow-hidden">
             <div className="flex flex-col py-4">
               {navLinks.map((link, index) => (
                 <a

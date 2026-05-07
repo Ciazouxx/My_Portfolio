@@ -2,62 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap");
-
 @layer base {
   :root {
-    --background: 240 20% 4%;
-    --foreground: 180 100% 95%;
+    --background: 222 47% 7%;
+    --foreground: 210 40% 96%;
 
-    --card: 240 20% 8%;
-    --card-foreground: 180 100% 95%;
+    --card: 222 42% 10%;
+    --card-foreground: 210 40% 96%;
 
-    --popover: 240 20% 8%;
-    --popover-foreground: 180 100% 95%;
+    --popover: 222 42% 10%;
+    --popover-foreground: 210 40% 96%;
 
-    --primary: 180 100% 50%;
-    --primary-foreground: 240 20% 4%;
+    --primary: 188 95% 48%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 300 100% 60%;
-    --secondary-foreground: 240 20% 4%;
+    --secondary: 262 80% 68%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 240 15% 15%;
-    --muted-foreground: 180 20% 60%;
+    --muted: 218 26% 17%;
+    --muted-foreground: 214 18% 72%;
 
-    --accent: 270 100% 65%;
-    --accent-foreground: 240 20% 4%;
+    --accent: 158 70% 48%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 180 50% 20%;
-    --input: 240 15% 15%;
-    --ring: 180 100% 50%;
+    --border: 215 26% 22%;
+    --input: 215 26% 19%;
+    --ring: 188 95% 48%;
 
     --radius: 0.75rem;
 
-    /* Neon colors */
-    --neon-cyan: 180 100% 50%;
-    --neon-magenta: 300 100% 60%;
-    --neon-purple: 270 100% 65%;
+    --neon-cyan: 188 95% 48%;
+    --neon-magenta: 262 80% 68%;
+    --neon-purple: 158 70% 48%;
     --neon-green: 150 100% 50%;
 
     /* Glow effects */
-    --glow-cyan: 0 0 20px hsl(180 100% 50% / 0.5),
-      0 0 40px hsl(180 100% 50% / 0.3), 0 0 60px hsl(180 100% 50% / 0.2);
-    --glow-magenta: 0 0 20px hsl(300 100% 60% / 0.5),
-      0 0 40px hsl(300 100% 60% / 0.3), 0 0 60px hsl(300 100% 60% / 0.2);
-    --glow-purple: 0 0 20px hsl(270 100% 65% / 0.5),
-      0 0 40px hsl(270 100% 65% / 0.3), 0 0 60px hsl(270 100% 65% / 0.2);
+    --glow-cyan: none;
+    --glow-magenta: none;
+    --glow-purple: none;
 
-    --sidebar-background: 240 20% 4%;
-    --sidebar-foreground: 180 100% 95%;
-    --sidebar-primary: 180 100% 50%;
-    --sidebar-primary-foreground: 240 20% 4%;
-    --sidebar-accent: 240 15% 15%;
-    --sidebar-accent-foreground: 180 100% 95%;
-    --sidebar-border: 180 50% 20%;
-    --sidebar-ring: 180 100% 50%;
+    --sidebar-background: 222 42% 10%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 188 95% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 218 26% 17%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 215 26% 22%;
+    --sidebar-ring: 188 95% 48%;
   }
 }
 
@@ -68,40 +62,67 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
+    overflow-x: hidden;
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(
+        circle at top left,
+        hsl(var(--primary) / 0.18),
+        transparent 32rem
+      ),
+      radial-gradient(
+        circle at 85% 20%,
+        hsl(var(--secondary) / 0.16),
+        transparent 30rem
+      ),
+      radial-gradient(
+        circle at 20% 85%,
+        hsl(var(--accent) / 0.12),
+        transparent 26rem
+      ),
+      linear-gradient(hsl(var(--foreground) / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.035) 1px, transparent 1px),
+      linear-gradient(180deg, hsl(var(--background)), hsl(225 48% 5%));
+    background-attachment: fixed;
+    background-size: auto, auto, auto, 44px 44px, 44px 44px, auto;
   }
 
   html {
     scroll-behavior: smooth;
   }
+
+  section {
+    scroll-margin-top: 5rem;
+  }
 }
 
 @layer components {
   .neon-text-cyan {
-    text-shadow: var(--glow-cyan);
+    text-shadow: none;
   }
 
   .neon-text-magenta {
-    text-shadow: var(--glow-magenta);
+    text-shadow: none;
   }
 
   .neon-text-purple {
-    text-shadow: var(--glow-purple);
+    text-shadow: none;
   }
 
   .neon-border-cyan {
-    box-shadow: var(--glow-cyan), inset 0 0 20px hsl(180 100% 50% / 0.1);
+    box-shadow: none;
   }
 
   .neon-border-magenta {
-    box-shadow: var(--glow-magenta), inset 0 0 20px hsl(300 100% 60% / 0.1);
+    box-shadow: none;
   }
 
   .neon-border-purple {
-    box-shadow: var(--glow-purple), inset 0 0 20px hsl(270 100% 65% / 0.1);
+    box-shadow: none;
   }
 
   .glass-card {
-    @apply bg-card/40 backdrop-blur-xl border border-border/50 rounded-xl;
+    @apply bg-card/85 border border-border/80 rounded-lg shadow-lg shadow-black/20 backdrop-blur;
   }
 
   .gradient-text {
@@ -111,15 +132,15 @@
 
 @layer utilities {
   .animate-glow-pulse {
-    animation: glow-pulse 2s ease-in-out infinite;
+    animation: none;
   }
 
   .animate-float {
-    animation: float 6s ease-in-out infinite;
+    animation: none;
   }
 
   .animate-flicker {
-    animation: flicker 3s linear infinite;
+    animation: none;
   }
 }
 
@@ -198,10 +219,17 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary) / 0.5);
+  background: hsl(var(--primary) / 0.45);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary) / 0.8);
+  background: hsl(var(--primary) / 0.7);
+}
+
+@media (max-width: 640px) {
+  body {
+    background-attachment: scroll;
+    background-size: auto, auto, auto, 36px 36px, 36px 36px, auto;
+  }
 }

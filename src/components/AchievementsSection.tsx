@@ -1,44 +1,13 @@
 import {
-  Award,
-  Medal,
   Trophy,
   Star,
-  FileCheck,
-  BadgeCheck,
   X,
   ArrowLeft,
   ArrowRight,
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
-import { useState, useEffect } from "react";
-
-/* const certificates = [
-  {
-    title: "Web Development Fundamentals",
-    issuer: "Coursera",
-    year: "2023",
-    icon: FileCheck,
-  },
-  {
-    title: "Python Programming",
-    issuer: "Udemy",
-    year: "2023",
-    icon: FileCheck,
-  },
-  {
-    title: "Database Management",
-    issuer: "LinkedIn Learning",
-    year: "2024",
-    icon: FileCheck,
-  },
-  {
-    title: "Cloud Computing Basics",
-    issuer: "AWS Academy",
-    year: "2024",
-    icon: BadgeCheck,
-  },
-]; */
+import { useCallback, useEffect, useState, type MouseEvent } from "react";
 
 const certificateImages = Array.from(
   { length: 5 },
@@ -53,20 +22,6 @@ const achievements = [
     icon: Trophy,
     color: "primary",
   },
-  // {
-  //   title: "1st Place Hackathon",
-  //   description: "University Tech Competition",
-  //   year: "2024",
-  //   icon: Medal,
-  //   color: "secondary",
-  // },
-  // {
-  //   title: "Best Capstone Project",
-  //   description: "Departmental Recognition",
-  //   year: "2024",
-  //   icon: Award,
-  //   color: "accent",
-  // },
   {
     title: "Outstanding Student Leader",
     description: "Student Council Award",
@@ -89,19 +44,19 @@ const AchievementsSection = () => {
 
   const closeLightbox = () => setLightboxOpen(false);
 
-  const nextImage = (e?: any) => {
+  const nextImage = useCallback((e?: MouseEvent<HTMLButtonElement>) => {
     e?.stopPropagation();
     setCurrentImageIndex((prev) => (prev + 1) % certificateImages.length);
     setZoom(1);
-  };
+  }, []);
 
-  const prevImage = (e?: any) => {
+  const prevImage = useCallback((e?: MouseEvent<HTMLButtonElement>) => {
     e?.stopPropagation();
     setCurrentImageIndex(
       (prev) => (prev - 1 + certificateImages.length) % certificateImages.length
     );
     setZoom(1);
-  };
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -114,19 +69,19 @@ const AchievementsSection = () => {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [lightboxOpen]);
+  }, [lightboxOpen, nextImage, prevImage]);
 
   return (
-    <section id="achievements" className="py-20 md:py-32 relative">
+    <section id="achievements" className="py-16 md:py-24 relative">
       {/* Lightbox modal */}
       {lightboxOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-2 sm:p-4"
           onClick={closeLightbox}
         >
-          <div className="relative max-w-[90vw] max-h-[90vh] p-4">
+          <div className="relative flex max-h-[94vh] max-w-[96vw] items-center justify-center sm:max-h-[92vh] sm:max-w-[92vw]">
             <button
-              className="absolute top-2 right-2 p-2 bg-card/60 rounded-full"
+              className="absolute right-2 top-2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-card/90 text-foreground shadow-lg shadow-black/30 backdrop-blur transition-colors hover:bg-muted sm:right-3 sm:top-3 sm:h-11 sm:w-11"
               onClick={(e) => {
                 e.stopPropagation();
                 closeLightbox();
@@ -137,7 +92,7 @@ const AchievementsSection = () => {
             </button>
 
             <button
-              className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-card/60 rounded-full"
+              className="absolute left-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/80 bg-card/90 text-foreground shadow-lg shadow-black/30 backdrop-blur transition-colors hover:bg-muted sm:left-3 sm:h-11 sm:w-11"
               onClick={(e) => prevImage(e)}
               aria-label="Previous"
             >
@@ -151,7 +106,7 @@ const AchievementsSection = () => {
               <img
                 src={certificateImages[currentImageIndex]}
                 alt={`Certificate ${currentImageIndex + 1}`}
-                className="max-w-[80vw] max-h-[80vh] object-contain"
+                className="max-h-[88vh] max-w-[92vw] rounded-lg object-contain sm:max-h-[86vh] sm:max-w-[86vw]"
                 style={{ transform: `scale(${zoom})` }}
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
@@ -162,16 +117,16 @@ const AchievementsSection = () => {
             </div>
 
             <button
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-card/60 rounded-full"
+              className="absolute right-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/80 bg-card/90 text-foreground shadow-lg shadow-black/30 backdrop-blur transition-colors hover:bg-muted sm:right-3 sm:h-11 sm:w-11"
               onClick={(e) => nextImage(e)}
               aria-label="Next"
             >
               <ArrowRight className="w-5 h-5" />
             </button>
 
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-2 sm:bottom-3">
               <button
-                className="p-2 bg-card/60 rounded-full"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-card/90 text-foreground shadow-lg shadow-black/30 backdrop-blur transition-colors hover:bg-muted"
                 onClick={(e) => {
                   e.stopPropagation();
                   setZoom((z) => Math.max(1, +(z - 0.25).toFixed(2)));
@@ -181,7 +136,7 @@ const AchievementsSection = () => {
                 <ZoomOut className="w-5 h-5" />
               </button>
               <button
-                className="p-2 bg-card/60 rounded-full"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-card/90 text-foreground shadow-lg shadow-black/30 backdrop-blur transition-colors hover:bg-muted"
                 onClick={(e) => {
                   e.stopPropagation();
                   setZoom((z) => Math.min(3, +(z + 0.25).toFixed(2)));
@@ -195,22 +150,14 @@ const AchievementsSection = () => {
         </div>
       )}
 
-      {/* Background accents */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]" />
-      </div>
-
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
+        <div className="text-center mb-12">
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
             <span className="gradient-text">CERTIFICATES</span>{" "}
             <span className="text-foreground">&</span>{" "}
-            <span className="text-secondary neon-text-magenta">
-              ACHIEVEMENTS
-            </span>
+            <span className="text-secondary">ACHIEVEMENTS</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary via-secondary to-accent mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-primary mx-auto rounded-full" />
         </div>
 
         {/* Certificates */}
@@ -218,45 +165,24 @@ const AchievementsSection = () => {
           <h3 className="font-display text-2xl font-semibold text-primary mb-8 text-center">
             CERTIFICATES
           </h3>
-          {/* <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {certificates.map((cert, index) => (
-              <div
-                key={cert.title}
-                className="glass-card p-6 border-primary/20 hover:border-primary transition-all duration-300 group hover:neon-border-cyan"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <cert.icon className="w-10 h-10 text-primary mb-4 group-hover:animate-pulse" />
-                <h4 className="font-display text-lg font-semibold text-foreground mb-2">
-                  {cert.title}
-                </h4>
-                <p className="font-body text-muted-foreground text-sm">
-                  {cert.issuer}
-                </p>
-                <p className="font-body text-primary text-sm mt-2">
-                  {cert.year}
-                </p>
-              </div>
-            ))}
-          </div> */}
-
           {/* Certificate Images Horizontal Scroll */}
           <div
-            className="overflow-x-auto pb-4"
+            className="overflow-x-visible pb-4 sm:overflow-x-auto"
             style={{ scrollBehavior: "smooth" }}
           >
-            <div className="flex gap-4 min-w-min">
+            <div className="grid min-w-0 grid-cols-1 gap-4 sm:flex sm:min-w-min">
               {certificateImages.map((img, index) => (
                 <div
                   key={index}
-                  className="bg-transparent border border-primary/20 p-2 hover:scale-105 transition-transform duration-300 flex-shrink-0 w-64 h-48 rounded-lg group"
+                  className="h-48 w-full flex-shrink-0 rounded-lg border border-border bg-card p-2 transition-colors duration-200 hover:border-primary/40 sm:w-64 group"
                 >
-                  <div className="w-full h-full overflow-hidden rounded-lg border border-primary/10 bg-transparent relative">
+                  <div className="w-full h-full overflow-hidden rounded-lg border border-border relative">
                     <img
                       src={img}
                       alt={`Certificate ${index + 1}`}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover cursor-pointer hover:scale-110 transition-transform duration-300"
+                      className="w-full h-full object-cover cursor-pointer"
                       onClick={() => openLightbox(index)}
                       onError={(e) => {
                         const target = e.currentTarget as HTMLImageElement;
@@ -280,18 +206,18 @@ const AchievementsSection = () => {
             {achievements.map((achievement, index) => (
               <div
                 key={achievement.title}
-                className={`glass-card p-6 border-${achievement.color}/20 hover:border-${achievement.color} transition-all duration-300 group hover:scale-105`}
+                className="glass-card p-6 transition-colors duration-200 group hover:border-primary/40"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="flex items-start gap-4">
                   <div
-                    className={`w-14 h-14 rounded-xl bg-${achievement.color}/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
+                    className={`w-14 h-14 rounded-lg bg-${achievement.color}/10 flex items-center justify-center shrink-0`}
                   >
                     <achievement.icon
                       className={`w-7 h-7 text-${achievement.color}`}
                     />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h4 className="font-display text-lg font-semibold text-foreground mb-1">
                       {achievement.title}
                     </h4>

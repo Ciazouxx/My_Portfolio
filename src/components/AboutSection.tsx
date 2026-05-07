@@ -1,48 +1,46 @@
-import { Code, Database, Globe, Cpu } from "lucide-react";
+import { Code, Globe } from "lucide-react";
 
 const skills = [
   { name: "Web Development", icon: Globe, color: "primary" },
   { name: "Programming", icon: Code, color: "secondary" },
-  // { name: "Database Management", icon: Database, color: "accent" },
-  // { name: "IT Systems", icon: Cpu, color: "primary" },
 ];
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-20 md:py-32 relative">
+    <section id="about" className="py-16 md:py-24 relative">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-secondary neon-text-magenta">ABOUT</span>{" "}
+        <div className="text-center mb-10 md:mb-12">
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
+            <span className="text-primary">ABOUT</span>{" "}
             <span className="text-foreground">ME</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary via-secondary to-accent mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-primary mx-auto rounded-full" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid items-center gap-8 md:grid-cols-2 lg:gap-12">
           {/* Profile Image */}
 
           <div className="relative group">
-            <div className="aspect-square max-w-md mx-auto glass-card p-4 animate-border-glow">
-              <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="aspect-square w-full max-w-sm mx-auto rounded-lg border border-border bg-card p-3 shadow-sm md:max-w-md">
+              <div className="w-full h-full rounded-md flex items-center justify-center overflow-hidden">
                 <img
                   src="/src/images/profile.jpg"
                   alt="Profile"
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-full h-full object-cover rounded-md"
                 />
               </div>
             </div>
           </div>
 
           {/* About Content */}
-          <div className="space-y-6">
-            <p className="font-body text-lg text-muted-foreground leading-relaxed">
+          <div className="space-y-5 sm:space-y-6">
+            <p className="font-body text-base text-muted-foreground leading-relaxed sm:text-lg">
               I am a passionate Bachelor of Science in Information Technology
               student dedicated to learning and mastering the latest
               technologies. My journey in IT has equipped me with skills in web
               development and programming.
             </p>
-            <p className="font-body text-lg text-muted-foreground leading-relaxed">
+            <p className="font-body text-base text-muted-foreground leading-relaxed sm:text-lg">
               I believe in continuous learning and applying theoretical
               knowledge to real-world projects. My goal is to become a skilled
               IT professional who can contribute to innovative technological
@@ -50,16 +48,14 @@ const AboutSection = () => {
             </p>
 
             {/* Skills Grid */}
-            <div className="grid grid-cols-2 gap-4 pt-6">
+            <div className="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-2 sm:pt-6">
               {skills.map((skill, index) => (
                 <div
                   key={skill.name}
-                  className={`glass-card p-4 border-${skill.color}/30 hover:border-${skill.color} transition-all duration-300 group cursor-default`}
+                  className="glass-card p-4 transition-colors duration-200 group cursor-default"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <skill.icon
-                    className={`w-8 h-8 mb-2 text-${skill.color} group-hover:animate-pulse`}
-                  />
+                  <skill.icon className={`w-8 h-8 mb-2 text-${skill.color}`} />
                   <p className="font-body font-semibold text-foreground">
                     {skill.name}
                   </p>
