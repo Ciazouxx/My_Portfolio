@@ -13,12 +13,8 @@ import {
   type MouseEvent,
   type ReactNode,
 } from "react";
-
-// Define the type for a journal entry
-type JournalEntryData = {
-  image: string;
-  content: React.ReactNode;
-};
+import OptimizedImage from "@/components/ui/image";
+import { activities } from "@/lib/activities";
 
 const INITIAL_GALLERY_COUNT = 6;
 

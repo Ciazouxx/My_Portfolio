@@ -8,11 +8,16 @@ import {
   ZoomOut,
 } from "lucide-react";
 import { useCallback, useEffect, useState, type MouseEvent } from "react";
+import OptimizedImage from "@/components/ui/image";
+import { assets } from "@/lib/assets";
 
-const certificateImages = Array.from(
-  { length: 5 },
-  (_, i) => `/src/images/cert/ac${i + 1}.jpg`
-);
+const certificateImages = [
+  assets.ac1,
+  assets.ac2,
+  assets.ac3,
+  assets.ac4,
+  assets.ac5,
+];
 
 const achievements = [
   {
