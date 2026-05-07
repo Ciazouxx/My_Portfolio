@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 
 const HobbiesSection = lazy(() => import("@/components/HobbiesSection"));
 const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
+const TechStackSection = lazy(() => import("@/components/TechStackSection"));
 const ActivitiesSection = lazy(() => import("@/components/ActivitiesSection"));
 const AchievementsSection = lazy(
   () => import("@/components/AchievementsSection")
@@ -27,6 +28,7 @@ const Index = () => {
           }
         >
           <ProjectsSection />
+          <TechStackSection />
           <HobbiesSection />
           <ActivitiesSection />
           <AchievementsSection />
