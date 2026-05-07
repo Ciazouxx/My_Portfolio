@@ -1,4 +1,5 @@
 import { Code, Globe } from "lucide-react";
+import { assets } from "@/lib/assets";
 
 const skills = [
   { name: "Web Development", icon: Globe, color: "primary" },
@@ -39,7 +40,7 @@ const AboutSection = () => {
             <div className="aspect-square w-full max-w-sm mx-auto rounded-lg border border-border bg-card p-3 shadow-sm md:max-w-md">
               <div className="w-full h-full rounded-md flex items-center justify-center overflow-hidden">
                 <img
-                  src="/src/images/profile.jpg"
+                  src={assets.profile}
                   alt="Profile"
                   className="w-full h-full object-cover rounded-md"
                 />
