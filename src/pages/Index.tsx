@@ -33,7 +33,9 @@ const Index = () => {
           <ContactSection />
         </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={<div className="py-4 text-center">Loading...</div>}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

@@ -100,19 +100,16 @@ const AchievementsSection = () => {
             </button>
 
             <div
-              className="flex items-center justify-center"
+              className="flex items-center justify-center w-[80vw] h-[80vh]"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <OptimizedImage
                 src={certificateImages[currentImageIndex]}
                 alt={`Certificate ${currentImageIndex + 1}`}
                 className="max-h-[88vh] max-w-[92vw] rounded-lg object-contain sm:max-h-[86vh] sm:max-w-[86vw]"
                 style={{ transform: `scale(${zoom})` }}
-                onError={(e) => {
-                  const target = e.currentTarget as HTMLImageElement;
-                  target.onerror = null;
-                  target.src = "/src/images/profile.jpg";
-                }}
+                width={1200}
+                height={900}
               />
             </div>
 
@@ -184,11 +181,6 @@ const AchievementsSection = () => {
                       decoding="async"
                       className="w-full h-full object-cover cursor-pointer"
                       onClick={() => openLightbox(index)}
-                      onError={(e) => {
-                        const target = e.currentTarget as HTMLImageElement;
-                        target.onerror = null;
-                        target.src = "/src/images/profile.jpg";
-                      }}
                     />
                   </div>
                 </div>

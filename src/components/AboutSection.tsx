@@ -5,6 +5,21 @@ const skills = [
   { name: "Programming", icon: Code, color: "secondary" },
 ];
 
+const colorConfig: { [key: string]: { border: string; text: string } } = {
+  primary: {
+    border: "border-primary/30 hover:border-primary",
+    text: "text-primary",
+  },
+  secondary: {
+    border: "border-secondary/30 hover:border-secondary",
+    text: "text-secondary",
+  },
+  accent: {
+    border: "border-accent/30 hover:border-accent",
+    text: "text-accent",
+  },
+};
+
 const AboutSection = () => {
   return (
     <section id="about" className="py-16 md:py-24 relative">
